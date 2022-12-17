@@ -1,0 +1,47 @@
+databaseChangeLog:
+  -  changeSet:
+       id:  1
+       author:  krutz
+       changes:
+         -  createTable:
+              tableName:  transaction_details
+              columns:
+                -  column:
+                     name:  id
+                     type:  uuid
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  transaction_id
+                     type:  varchar(255)
+                - column:
+                    name: merchant_id
+                    type: uuid
+                - column:
+                    name: merchant_order_id
+                    type: varchar(255)
+                - column:
+                    name: amount
+                    type: varchar(255)
+                - column:
+                    name: payment_method
+                    type: boolean
+                - column:
+                    name: transactionDate
+                    type: timestamp
+                - column:
+                    name: shopper_info
+                    type: varchar
+                - column:
+                    name: createdOn
+                    type: timestamp
+                - column:
+                    name: createdBy
+                    type: varchar(255)
+                - column:
+                    name: updatedOn
+                    type: timestamp
+                - column:
+                    name: updatedBy
+                    type: varchar(255)
