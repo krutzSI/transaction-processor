@@ -1,0 +1,21 @@
+
+<databaseChangeLog
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="" id="MERCHANT_DETAILS_INSERT">
+        <insert tableName="MERCHANT_DETAILS">
+            <column name="id" value="7b8d686c-5571-4d67-aed2-f87ceb0294b0"/>
+            <column name="merchant_id" value="d6a0504b-b304-4e16-837f-9cab6b1f9b6c"/>
+            <column name="merchant_name" value="demo merchant"/>
+            <column name="merchant_email" value="demoMerchant1@test.com"/>
+            <column name="api_key" value="c1cb3367-52ff-40a1-9c8e-4ef5bb398c5b"/>
+            <column name="created_by" value="script"/>
+            <column name="created_on" value="now()"/>
+            <column name="updated_by" value="script"/>
+            <column name="updated_on" value="now()"/>
+            <column name="ACTIVE" value="TRUE"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

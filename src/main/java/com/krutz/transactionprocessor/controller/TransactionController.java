@@ -6,6 +6,7 @@ import com.krutz.transactionprocessor.dto.response.TransactionResponse;
 import com.krutz.transactionprocessor.service.TransactionService;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,10 +35,10 @@ public class TransactionController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 
 	public ResponseEntity<TransactionResponse> processTransaction(
-			@RequestBody MerchantTransactionRequest request) {
+			@RequestBody MerchantTransactionRequest request, @RequestHeader Map requestHeader) {
 		log.info("processTransaction invoked.");
 		TransactionResponse transactionResponse = transactionService.processRequest(
-				request);
+				request,requestHeader);
 		ResponseEntity responseEntity = new ResponseEntity(transactionResponse, HttpStatus.OK);
 		return responseEntity;
 	}
@@ -44,10 +46,10 @@ public class TransactionController {
 	@GetMapping(value = "/details",
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<TransactionResponse> getTransactionDetails(
-			@RequestParam(name = "transactionId") UUID transactionId) {
+			@RequestParam(name = "transactionId") UUID transactionId, @RequestHeader Map requestHeader) {
 		log.info("getTransactionDetails invoked for {}",transactionId);
 		TransactionDetailsResponse transactionDetails = transactionService.getTransactionByTransactionId(
-				transactionId);
+				transactionId,requestHeader);
 		ResponseEntity responseEntity = new ResponseEntity(transactionDetails, HttpStatus.OK);
 		return responseEntity;
 	}
@@ -57,7 +59,7 @@ public class TransactionController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<TransactionResponse>> getAllTransactionDetails(
 			@RequestParam(name = "merchantId") UUID merchantId,@RequestParam(name = "transactionDate")
-			@DateTimeFormat(iso = ISO.DATE) LocalDate transactionDate) {
+			@DateTimeFormat(iso = ISO.DATE) LocalDate transactionDate, @RequestHeader Map requestHeader) {
 		log.info("getAllTransactionDetails invoked for {}",merchantId, " transactionDate : {}",transactionDate);
 		List<TransactionDetailsResponse> transactionDetails = transactionService.getTransactionByMerchantId(
 				merchantId,transactionDate);

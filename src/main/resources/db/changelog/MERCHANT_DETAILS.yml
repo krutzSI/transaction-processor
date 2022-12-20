@@ -14,7 +14,7 @@ databaseChangeLog:
                        nullable:  false
                 -  column:
                      name:  merchant_id
-                     type:  varchar(255)
+                     type:  uuid
                 - column:
                     name: merchant_name
                     type: varchar(255)
@@ -25,17 +25,20 @@ databaseChangeLog:
                     name: merchant_notification_method
                     type: varchar(255)
                 - column:
+                    name: api_key
+                    type: uuid
+                - column:
                     name: active
                     type: boolean
                 - column:
-                    name: createdOn
+                    name: created_on
                     type: timestamp
                 - column:
-                    name: createdBy
+                    name: created_by
                     type: varchar(255)
                 - column:
-                    name: updatedOn
+                    name: updated_on
                     type: timestamp
                 - column:
-                    name: updatedBy
+                    name: updated_by
                     type: varchar(255)

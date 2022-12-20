@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import com.krutz.transactionprocessor.dto.request.MerchantTransactionRequest;
 import com.krutz.transactionprocessor.dto.response.TransactionResponse;
 import com.krutz.transactionprocessor.service.TransactionService;
+import java.util.HashMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,10 +29,10 @@ public class TransactionControllerTest {
 		MerchantTransactionRequest transactionRequest=new MerchantTransactionRequest();
 
 		TransactionResponse transactionResponse = new TransactionResponse();
-		Mockito.when(transactionService.processRequest(transactionRequest)).thenReturn(transactionResponse);
+		Mockito.when(transactionService.processRequest(transactionRequest, new HashMap())).thenReturn(transactionResponse);
 
 		ResponseEntity<TransactionResponse> transactionResponseResponseEntity = controller.processTransaction(
-				transactionRequest);
+				transactionRequest, new HashMap<>());
 
 		assertNotNull("ResponseEntity should not be null", transactionResponseResponseEntity);
 		assertEquals("transactionResponse should match",transactionResponse, transactionResponseResponseEntity.getBody());

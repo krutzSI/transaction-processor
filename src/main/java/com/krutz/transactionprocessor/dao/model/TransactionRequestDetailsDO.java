@@ -25,7 +25,7 @@ public class TransactionRequestDetailsDO extends AuditDO {
 	@Id
 	@GeneratedValue
 	@Column(name = "id", columnDefinition = "uuid")
-	private UUID ID;
+	private UUID id;
 
 	@Column(name = "transaction_id")
 	private UUID transactionId;
