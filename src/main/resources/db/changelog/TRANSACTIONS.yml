@@ -13,7 +13,7 @@ databaseChangeLog:
                        primaryKey:  true
                        nullable:  false
                 -  column:
-                     name:  transaction_reference
+                     name:  transaction_id
                      type:  uuid
                 - column:
                     name: merchant_id
@@ -23,6 +23,9 @@ databaseChangeLog:
                     type: varchar
                 - column:
                     name: amount
+                    type: varchar
+                - column:
+                    name: currency
                     type: varchar
                 - column:
                     name: payment_method

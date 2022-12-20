@@ -14,7 +14,7 @@ public class TransactionRequestDetailsDOBuilder {
 
 	public TransactionRequestDetailsDO build(MerchantTransactionRequest transactionRequest){
 		TransactionRequestDetailsDO transactionRequestDetailsDO=new TransactionRequestDetailsDO();
-		transactionRequestDetailsDO.setTransactionReference(UUID.randomUUID());
+		transactionRequestDetailsDO.setTransactionId(UUID.randomUUID());
 		transactionRequestDetailsDO.setStatus(Status.ACCEPTED);
 		BeanUtils.copyProperties(transactionRequest, transactionRequestDetailsDO);
 		return transactionRequestDetailsDO;

@@ -1,18 +1,18 @@
 package com.krutz.transactionprocessor.exception;
 
-import com.krutz.transactionprocessor.dto.response.ErrorResponse;
+import com.krutz.transactionprocessor.dto.response.TransactionErrorResponse;
 
 public class ValidationException extends RuntimeException {
-	private ErrorResponse errorResponse;
+	private TransactionErrorResponse errorResponse;
 	public ValidationException(String message) {
 		super(message);
 	}
 
-	public ErrorResponse getErrorResponse() {
+	public TransactionErrorResponse getErrorResponse() {
 		return errorResponse;
 	}
 
-	public void setErrorResponse(ErrorResponse errorResponse) {
+	public void setErrorResponse(TransactionErrorResponse errorResponse) {
 		this.errorResponse = errorResponse;
 	}
 }

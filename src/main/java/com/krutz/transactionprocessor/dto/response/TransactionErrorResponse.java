@@ -1,11 +1,11 @@
 package com.krutz.transactionprocessor.dto.response;
 
-import com.krutz.transactionprocessor.constant.Status;
-import java.util.UUID;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class ErrorResponse {
+public class TransactionErrorResponse extends BaseResponse {
+
 	private String errorCode;
 	private String errorDescription;
 	private String remarks;

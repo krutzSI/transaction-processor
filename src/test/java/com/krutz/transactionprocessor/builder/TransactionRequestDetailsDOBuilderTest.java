@@ -25,7 +25,7 @@ public class TransactionRequestDetailsDOBuilderTest {
 		TransactionRequestDetailsDO requestDetailsDO = transactionRequestDetailsDOBuilder.build(
 				transactionRequest);
 		assertNotNull("TransactionRequestDetailsDO should not null", requestDetailsDO);
-		assertNotNull("TransactionReference should not null",requestDetailsDO.getTransactionReference());
+		assertNotNull("TransactionReference should not null",requestDetailsDO.getTransactionId());
 		assertEquals("Status should match", Status.ACCEPTED,requestDetailsDO.getStatus());
 	}
 }

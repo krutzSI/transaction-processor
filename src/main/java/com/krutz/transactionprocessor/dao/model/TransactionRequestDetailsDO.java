@@ -27,8 +27,8 @@ public class TransactionRequestDetailsDO extends AuditDO {
 	@Column(name = "id", columnDefinition = "uuid")
 	private UUID ID;
 
-	@Column(name = "transaction_reference")
-	private UUID transactionReference;
+	@Column(name = "transaction_id")
+	private UUID transactionId;
 
 	@Column(name = "merchant_id")
 	private UUID merchantId;

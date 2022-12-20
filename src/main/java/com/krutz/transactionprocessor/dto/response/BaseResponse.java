@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class BaseResponse {
+	protected UUID transactionId;
 	protected UUID merchantId;
-	protected String transactionId;
 	protected String merchantOrderId;
 	protected Status status;
 }

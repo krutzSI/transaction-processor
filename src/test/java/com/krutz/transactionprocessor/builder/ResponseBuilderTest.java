@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import com.krutz.transactionprocessor.constant.Status;
 import com.krutz.transactionprocessor.dto.request.MerchantTransactionRequest;
 import com.krutz.transactionprocessor.dto.response.ErrorResponse;
+import com.krutz.transactionprocessor.dto.response.TransactionErrorResponse;
 import com.krutz.transactionprocessor.dto.response.TransactionResponse;
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -35,7 +36,7 @@ public class ResponseBuilderTest {
 		assertEquals("transactionId should match", String.valueOf(transactionId),
 				transactionResponse.getTransactionId());
 		assertEquals("amount should match", BigDecimal.TEN, transactionResponse.getAmount());
-		assertNotNull("date should not be null", transactionResponse.getDate());
+		assertNotNull("date should not be null", transactionResponse.getTransactionDate());
 		assertEquals("merchantId should match", merchantId, transactionResponse.getMerchantId());
 		assertEquals("status should match", status, status);
 	}
@@ -52,7 +53,7 @@ public class ResponseBuilderTest {
 		request.setMerchantOrderId(merchantOrderId);
 
 		String transactionError = "Transaction Error";
-		ErrorResponse errorResponse = responseBuilder.buildResponseForValidationError(request,
+		TransactionErrorResponse errorResponse = responseBuilder.buildResponseForValidationError(request,
 				transactionId,
 				status, transactionError);
 		assertNotNull(errorResponse);
