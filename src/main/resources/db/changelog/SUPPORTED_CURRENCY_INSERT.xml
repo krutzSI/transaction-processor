@@ -1,0 +1,69 @@
+
+<databaseChangeLog
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="" id="SUPPORTED_CURRENCY_INSERT">
+        <insert tableName="SUPPORTED_CURRENCY">
+            <column name="id" value="161df462-ec28-4328-97f3-759df500e167"/>
+            <column name="merchant_id" value="7b8d686c-5571-4d67-aed2-f87ceb0294b0"/>
+            <column name="CURRENCY" value="INR"/>
+            <column name="created_by" value="script"/>
+            <column name="created_on" value="now()"/>
+            <column name="updated_by" value="script"/>
+            <column name="updated_on" value="now()"/>
+            <column name="ACTIVE" value="TRUE"/>
+        </insert>
+        <insert tableName="SUPPORTED_CURRENCY">
+            <column name="id" value="89e438ad-f5a4-4840-be70-7e449227b770"/>
+            <column name="merchant_id" value="7b8d686c-5571-4d67-aed2-f87ceb0294b0"/>
+            <column name="CURRENCY" value="JPY"/>
+            <column name="created_by" value="script"/>
+            <column name="created_on" value="now()"/>
+            <column name="updated_by" value="script"/>
+            <column name="updated_on" value="now()"/>
+            <column name="ACTIVE" value="TRUE"/>
+        </insert>
+        <insert tableName="SUPPORTED_CURRENCY">
+            <column name="id" value="8bc95d66-5b16-4c2c-a750-84f07268ff76"/>
+            <column name="merchant_id" value="7b8d686c-5571-4d67-aed2-f87ceb0294b0"/>
+            <column name="CURRENCY" value="JPY"/>
+            <column name="created_by" value="script"/>
+            <column name="created_on" value="now()"/>
+            <column name="updated_by" value="script"/>
+            <column name="updated_on" value="now()"/>
+            <column name="ACTIVE" value="TRUE"/>
+        </insert>
+        <insert tableName="SUPPORTED_CURRENCY">
+            <column name="id" value="292e26f6-8b0c-4ba0-a2d6-5549ce95ff60"/>
+            <column name="merchant_id" value="7b8d686c-5571-4d67-aed2-f87ceb0294b0"/>
+            <column name="CURRENCY" value="JOD"/>
+            <column name="created_by" value="script"/>
+            <column name="created_on" value="now()"/>
+            <column name="updated_by" value="script"/>
+            <column name="updated_on" value="now()"/>
+            <column name="ACTIVE" value="TRUE"/>
+        </insert>
+        <insert tableName="SUPPORTED_CURRENCY">
+            <column name="id" value="78bd265f-3ac8-4abb-8d5d-a8dca13f1ec7"/>
+            <column name="merchant_id" value="7b8d686c-5571-4d67-aed2-f87ceb0294b0"/>
+            <column name="CURRENCY" value="USD"/>
+            <column name="created_by" value="script"/>
+            <column name="created_on" value="now()"/>
+            <column name="updated_by" value="script"/>
+            <column name="updated_on" value="now()"/>
+            <column name="ACTIVE" value="TRUE"/>
+        </insert>
+        <insert tableName="SUPPORTED_CURRENCY">
+            <column name="id" value="0b6772b3-f3e0-4f0e-9efc-eece7d0ea053"/>
+            <column name="merchant_id" value="95b2697d-34f7-418e-a5d6-7eba063a9c15"/>
+            <column name="CURRENCY" value="USD"/>
+            <column name="created_by" value="script"/>
+            <column name="created_on" value="now()"/>
+            <column name="updated_by" value="script"/>
+            <column name="updated_on" value="now()"/>
+            <column name="ACTIVE" value="TRUE"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

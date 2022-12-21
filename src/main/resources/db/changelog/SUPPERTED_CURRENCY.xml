@@ -1,0 +1,27 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="SUPPORTED_CURRENCY" author="">
+        <createTable tableName="SUPPORTED_CURRENCY">
+            <column name="id" type="UUID">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="merchant_id" type="UUID"/>
+            <column name="CURRENCY" type="VARCHAR"/>
+            <column name="active" type="boolean"/>
+            <column name="created_by" type="VARCHAR"/>
+            <column name="updated_by" type="VARCHAR"/>
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_on" type="TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="SUPPORTED_CURRENCY"
+            baseColumnNames="merchant_id"
+            constraintName="MERCHANT_ID_CURRENCY_FK"
+            referencedTableName="MERCHANT_DETAILS"
+            referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
