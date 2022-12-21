@@ -1,5 +1,6 @@
 package com.krutz.transactionprocessor.validator;
 
+import com.krutz.transactionprocessor.dao.model.MerchantDetailsDO;
 import com.krutz.transactionprocessor.dto.request.MerchantTransactionRequest;
 import com.krutz.transactionprocessor.exception.RequestValidationException;
 import java.util.Set;
@@ -12,12 +13,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(2)
-public class MerchantRequestValidator implements Validator{
+public class BeanValidator implements Validator{
 
 	@Autowired private javax.validation.Validator validator;
 
 	@Override
-	public boolean validate(MerchantTransactionRequest request) {
+	public boolean validate(MerchantTransactionRequest request, MerchantDetailsDO merchantDetailsDO) {
 		Set<ConstraintViolation<MerchantTransactionRequest>> violations = validator.validate(request);
 		StringBuilder validationErrorBuffer = new StringBuilder();
 

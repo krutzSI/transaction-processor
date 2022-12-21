@@ -10,6 +10,6 @@ public interface MerchantDetailsRepo extends JpaRepository<MerchantDetailsDO, UU
 
 	MerchantDetailsDO findByApiKeyAndActive(UUID apiKey, boolean active);
 
-	MerchantDetailsDO findByMerchantId(UUID merchantId);
+	MerchantDetailsDO findByMerchantIdAndActive(UUID merchantId, boolean active);
 }
 

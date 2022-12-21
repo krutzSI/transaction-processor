@@ -32,6 +32,9 @@ public class MerchantDetailsDO extends AuditDO{
 	@Column(name = "api_key")
 	private UUID apiKey;
 
+	@Column(name = "secret_key")
+	private String secretKey;
+
 	@Column(name = "active")
 	private boolean active;
 

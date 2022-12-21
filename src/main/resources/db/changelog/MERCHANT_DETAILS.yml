@@ -28,6 +28,9 @@ databaseChangeLog:
                     name: api_key
                     type: uuid
                 - column:
+                    name: secret_key
+                    type: varchar
+                - column:
                     name: active
                     type: boolean
                 - column:

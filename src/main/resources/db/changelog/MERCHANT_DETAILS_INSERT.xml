@@ -8,9 +8,24 @@
         <insert tableName="MERCHANT_DETAILS">
             <column name="id" value="7b8d686c-5571-4d67-aed2-f87ceb0294b0"/>
             <column name="merchant_id" value="d6a0504b-b304-4e16-837f-9cab6b1f9b6c"/>
-            <column name="merchant_name" value="demo merchant"/>
+            <column name="merchant_name" value="demo merchant1"/>
             <column name="merchant_email" value="demoMerchant1@test.com"/>
             <column name="api_key" value="c1cb3367-52ff-40a1-9c8e-4ef5bb398c5b"/>
+            <column name="secret_key" value="9418dd5a-9d0c-4b52-95ec-8dd7aebc4222"/>
+            <column name="created_by" value="script"/>
+            <column name="created_on" value="now()"/>
+            <column name="updated_by" value="script"/>
+            <column name="updated_on" value="now()"/>
+            <column name="ACTIVE" value="TRUE"/>
+        </insert>
+
+        <insert tableName="MERCHANT_DETAILS">
+            <column name="id" value="95b2697d-34f7-418e-a5d6-7eba063a9c15"/>
+            <column name="merchant_id" value="7ff2f042-6904-4ae3-8368-cc699f0a556c"/>
+            <column name="merchant_name" value="demo merchant2"/>
+            <column name="merchant_email" value="demoMerchant2@test.com"/>
+            <column name="api_key" value="9d5e7a9e-1b2b-433b-8321-063ccafd6a88"/>
+            <column name="secret_key" value="cd00488c-544e-45a7-aa49-3467b4a99fa3"/>
             <column name="created_by" value="script"/>
             <column name="created_on" value="now()"/>
             <column name="updated_by" value="script"/>

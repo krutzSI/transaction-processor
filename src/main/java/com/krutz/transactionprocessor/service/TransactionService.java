@@ -2,13 +2,11 @@ package com.krutz.transactionprocessor.service;
 
 import com.krutz.transactionprocessor.builder.ResponseBuilder;
 import com.krutz.transactionprocessor.constant.Status;
-import com.krutz.transactionprocessor.dao.model.MerchantDetailsDO;
 import com.krutz.transactionprocessor.dao.model.TransactionRequestDetailsDO;
 import com.krutz.transactionprocessor.dto.request.MerchantTransactionRequest;
 import com.krutz.transactionprocessor.dto.response.TransactionDetailsResponse;
 import com.krutz.transactionprocessor.dto.response.TransactionResponse;
 import com.krutz.transactionprocessor.exception.TransactionNotFoundException;
-import com.krutz.transactionprocessor.exception.UnauthorizedAccessException;
 import com.krutz.transactionprocessor.exception.ValidationException;
 import com.krutz.transactionprocessor.processor.ProcessorFactory;
 import com.krutz.transactionprocessor.validator.TransactionRequestValidator;
@@ -18,13 +16,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class TransactionService {
+
+	@Autowired
+	AccessVerificationService accessVerificationService;
 
 	@Autowired
 	private TransactionRequestService requestService;
@@ -38,8 +38,6 @@ public class TransactionService {
 	@Autowired
 	private ResponseBuilder responseBuilder;
 
-	@Autowired
-	private MerchantService merchantService;
 
 	public TransactionResponse processRequest(MerchantTransactionRequest request, Map requestHeader) {
 		log.info("processTransaction invoked for merchantId: {}, merchantOrderId : {}",
@@ -49,7 +47,7 @@ public class TransactionService {
 				request);
 
 		//validate access
-		validateAccess(requestHeader,requestDO);
+		accessVerificationService.verifyAccessToResource(requestHeader, requestDO);
 
 		//validate request
 		validate(request, requestDO);
@@ -59,10 +57,8 @@ public class TransactionService {
 
 		//invoke processing logic
 		TransactionResponse response = processorFactory.getProcessor(request.getTransactionAmount())
-				.process(request, requestDO.getTransactionId());
+				.process(request, requestDO);
 
-		//persist status
-		requestService.updateStatus(requestDO, response.getStatus());
 
 		//return response
 		return response;
@@ -85,18 +81,18 @@ public class TransactionService {
 		}
 	}
 
-	public TransactionDetailsResponse getTransactionByTransactionId(UUID transactionId, Map requestHeader) {
-
-
+	public TransactionDetailsResponse getTransactionByTransactionId(UUID transactionId,
+			Map requestHeader) {
 
 		Optional<TransactionRequestDetailsDO> transactionRequestDetailsDO = requestService.findByTransactionId(
 				transactionId);
 		if (transactionRequestDetailsDO.isPresent()) {
 			TransactionRequestDetailsDO requestDetailsDO = transactionRequestDetailsDO.get();
-			validateAccess(requestHeader,requestDetailsDO);
+			accessVerificationService.verifyAccessToResource(requestHeader, requestDetailsDO);
 			return responseBuilder.buildForTransactionDetails(requestDetailsDO);
-		}else{
-			throw new TransactionNotFoundException("No TransactionFound with transactionId "+transactionId);
+		} else {
+			throw new TransactionNotFoundException(
+					"No TransactionFound with transactionId " + transactionId);
 		}
 	}
 
@@ -106,18 +102,6 @@ public class TransactionService {
 		List<TransactionRequestDetailsDO> transactionRequestDetailsDO = requestService.findByMerchantIdAndTransactionDate(
 				merchantId, transactionDate);
 		return responseBuilder.buildForTransactionDetails(transactionRequestDetailsDO);
-	}
-
-	private void validateAccess(Map requestHeader,TransactionRequestDetailsDO requestDetailsDO ){
-		String apiKey = (String) requestHeader.get("x-api-key");
-		MerchantDetailsDO merchant = merchantService.getMerchantByApiKey(UUID.fromString(apiKey));
-		validateMerchantId(requestDetailsDO.getMerchantId(), merchant.getMerchantId());
-	}
-
-	private void validateMerchantId(UUID requestMerchantId,UUID originalMerchantId) {
-		if(!requestMerchantId.equals(originalMerchantId)){
-			throw new UnauthorizedAccessException("Access denied to requested resource.");
-		}
 	}
 
 }

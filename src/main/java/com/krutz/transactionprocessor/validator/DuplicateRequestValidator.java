@@ -1,5 +1,6 @@
 package com.krutz.transactionprocessor.validator;
 
+import com.krutz.transactionprocessor.dao.model.MerchantDetailsDO;
 import com.krutz.transactionprocessor.dao.model.TransactionRequestDetailsDO;
 import com.krutz.transactionprocessor.dto.request.MerchantTransactionRequest;
 import com.krutz.transactionprocessor.exception.DuplicateTransactionException;
@@ -10,14 +11,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(1)
+@Order(2)
 public class DuplicateRequestValidator implements Validator {
 
 	@Autowired
 	private TransactionRequestService requestService;
 
 	@Override
-	public boolean validate(MerchantTransactionRequest request) {
+	public boolean validate(MerchantTransactionRequest request, MerchantDetailsDO merchantDetailsDO) {
 		TransactionRequestDetailsDO duplicateTransaction =
 				requestService.findDuplicateTransaction(
 						request.getMerchantId(), request.getMerchantOrderId());

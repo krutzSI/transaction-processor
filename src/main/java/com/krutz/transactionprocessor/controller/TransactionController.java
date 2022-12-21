@@ -33,7 +33,6 @@ public class TransactionController {
 
 	@PostMapping(value = "/process", consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-
 	public ResponseEntity<TransactionResponse> processTransaction(
 			@RequestBody MerchantTransactionRequest request, @RequestHeader Map requestHeader) {
 		log.info("processTransaction invoked.");

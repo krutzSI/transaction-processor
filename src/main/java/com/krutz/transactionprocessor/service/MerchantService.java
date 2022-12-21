@@ -17,4 +17,7 @@ public class MerchantService {
 		return repo.findByApiKeyAndActive(apiKey,Boolean.TRUE);
 	}
 
+	public MerchantDetailsDO getMerchantByMerchantId(UUID merchantId){
+		return repo.findByMerchantIdAndActive(merchantId,Boolean.TRUE);
+	}
 }

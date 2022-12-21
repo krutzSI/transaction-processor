@@ -39,6 +39,9 @@ public class TransactionRequestDetailsDO extends AuditDO {
 	@Column(name = "amount")
 	private BigDecimal transactionAmount;
 
+	@Column(name = "currency")
+	private String currency;
+
 	@Column(name = "payment_method")
 	private String paymentMethod;
 

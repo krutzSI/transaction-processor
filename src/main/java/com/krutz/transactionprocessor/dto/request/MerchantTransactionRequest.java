@@ -15,4 +15,5 @@ public class MerchantTransactionRequest extends TransactionRequest{
 	@NotBlank
 	private String merchantOrderId;
 	private Map<String,Object> shopperInfo;
+	private String signature;
 }
