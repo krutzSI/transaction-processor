@@ -77,7 +77,7 @@ public class ApplicationExceptionHandler {
 
 	private ErrorResponse getErrorResponse(Exception e) {
 		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setRemarks(e.getMessage());
+		errorResponse.setError_message(e.getMessage());
 		return errorResponse;
 	}
 }

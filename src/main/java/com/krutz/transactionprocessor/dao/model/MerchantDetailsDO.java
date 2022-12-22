@@ -11,7 +11,8 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "merchant_details")
-public class MerchantDetailsDO extends AuditDO{
+public class MerchantDetailsDO extends AuditDO {
+
 	@Id
 	@GeneratedValue
 	@Column(name = "id", columnDefinition = "uuid")
@@ -24,10 +25,10 @@ public class MerchantDetailsDO extends AuditDO{
 	private String merchantName;
 
 	@Column(name = "merchant_email")
-	private String merchantEmail ;
+	private String merchantEmail;
 
-	@Column(name = "merchant_notification_method")
-	private String merchantNotificationMethod;
+	@Column(name = "merchant_webhook_endpoint")
+	private String merchantWebhookEndpoint;
 
 	@Column(name = "api_key")
 	private UUID apiKey;

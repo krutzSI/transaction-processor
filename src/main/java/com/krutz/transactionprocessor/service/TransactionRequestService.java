@@ -58,4 +58,8 @@ public class TransactionRequestService {
 				LocalDateTime.of(transactionDate, LocalDateTime.MIN.toLocalTime()),
 				LocalDateTime.of(transactionDate, LocalDateTime.MAX.toLocalTime()));
 	}
+
+	public List<TransactionRequestDetailsDO> getAllInProgressTransactions() {
+		return requestDetailsRepo.findByStatus(Status.IN_PROGRESS);
+	}
 }

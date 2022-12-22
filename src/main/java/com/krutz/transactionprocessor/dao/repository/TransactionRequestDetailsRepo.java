@@ -17,6 +17,8 @@ public interface TransactionRequestDetailsRepo extends
 
 	TransactionRequestDetailsDO findByTransactionId(UUID transactionId);
 
+	List<TransactionRequestDetailsDO> findByMerchantIdAndTransactionDateBetween(UUID transactionId,
+			LocalDateTime startDateTime, LocalDateTime endDateTime);
 
-	List<TransactionRequestDetailsDO> findByMerchantIdAndTransactionDateBetween(UUID transactionId, LocalDateTime startDateTime, LocalDateTime endDateTime);
+	List<TransactionRequestDetailsDO> findByStatus(Status status);
 }

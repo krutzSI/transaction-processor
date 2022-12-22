@@ -1,6 +1,6 @@
 databaseChangeLog:
   -  changeSet:
-       id:  1
+       id:  MERCHANT_DETAILS
        author:  krutz
        changes:
          -  createTable:
@@ -17,13 +17,13 @@ databaseChangeLog:
                      type:  uuid
                 - column:
                     name: merchant_name
-                    type: varchar(255)
+                    type: varchar
                 - column:
                     name: merchant_email
-                    type: varchar(255)
+                    type: varchar
                 - column:
-                    name: merchant_notification_method
-                    type: varchar(255)
+                    name: merchant_webhook_endpoint
+                    type: varchar
                 - column:
                     name: api_key
                     type: uuid

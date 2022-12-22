@@ -3,6 +3,7 @@ package com.krutz.transactionprocessor.dao.model;
 import com.krutz.transactionprocessor.constant.Status;
 import com.krutz.transactionprocessor.dao.converter.MapToJSONConverter;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;

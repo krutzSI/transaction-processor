@@ -10,12 +10,14 @@ import com.krutz.transactionprocessor.exception.TransactionNotFoundException;
 import com.krutz.transactionprocessor.exception.ValidationException;
 import com.krutz.transactionprocessor.processor.ProcessorFactory;
 import com.krutz.transactionprocessor.validator.TransactionRequestValidator;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,9 @@ public class TransactionService {
 	@Autowired
 	private ResponseBuilder responseBuilder;
 
+	@Autowired
+	private NotificationService notificationService;
+
 
 	public TransactionResponse processRequest(MerchantTransactionRequest request, Map requestHeader) {
 		log.info("processTransaction invoked for merchantId: {}, merchantOrderId : {}",
@@ -58,7 +63,6 @@ public class TransactionService {
 		//invoke processing logic
 		TransactionResponse response = processorFactory.getProcessor(request.getTransactionAmount())
 				.process(request, requestDO);
-
 
 		//return response
 		return response;
@@ -83,7 +87,8 @@ public class TransactionService {
 
 	public TransactionDetailsResponse getTransactionByTransactionId(UUID transactionId,
 			Map requestHeader) {
-
+		log.info("getTransactionByMerchantId invoked for transactionId : {}",
+				transactionId);
 		Optional<TransactionRequestDetailsDO> transactionRequestDetailsDO = requestService.findByTransactionId(
 				transactionId);
 		if (transactionRequestDetailsDO.isPresent()) {
@@ -98,10 +103,47 @@ public class TransactionService {
 
 	public List<TransactionDetailsResponse> getTransactionByMerchantId(UUID merchantId,
 			LocalDate transactionDate) {
-
+		log.info("getTransactionByMerchantId invoked for merchantId : {}, transactionDate : {}",
+				merchantId, transactionDate);
 		List<TransactionRequestDetailsDO> transactionRequestDetailsDO = requestService.findByMerchantIdAndTransactionDate(
 				merchantId, transactionDate);
 		return responseBuilder.buildForTransactionDetails(transactionRequestDetailsDO);
+	}
+
+	/**
+	 * Change status of transaction with amount 100 to SUCCESS and amount 300 to FAILED and notify
+	 * merchant
+	 */
+	public void processInProgressTransactions() {
+		log.info("processInProgressTransactions invoked");
+		List<TransactionRequestDetailsDO> transactionsToBeProcessed = requestService.getAllInProgressTransactions();
+
+		if (CollectionUtils.isEmpty(transactionsToBeProcessed)) {
+			log.info("No IN_PROGRESS transactions found");
+			return;
+		}
+
+		transactionsToBeProcessed.stream().forEach(transaction -> {
+			try {
+				if (transaction.getTransactionAmount().equals(BigDecimal.valueOf(100))) {
+					log.info("transaction : {} is successfully processed", transaction.getTransactionId());
+					updateAndNotify(transaction, Status.SUCCESS);
+				} else if (transaction.getTransactionAmount().equals(BigDecimal.valueOf(200))) {
+					log.info("transaction : {} is failed to process", transaction.getTransactionId());
+					updateAndNotify(transaction, Status.FAILED);
+				} else {
+					log.info("transaction : {} is yet to be processed", transaction.getTransactionId());
+				}
+			} catch (Exception e) {
+				log.error("Exception processing transaction : {} ", transaction.getTransactionId(), e);
+			}
+		});
+
+	}
+
+	private void updateAndNotify(TransactionRequestDetailsDO transaction, Status status) {
+		requestService.updateStatus(transaction, status);
+		notificationService.notifyTransactionStatusToMerchant(transaction);
 	}
 
 }

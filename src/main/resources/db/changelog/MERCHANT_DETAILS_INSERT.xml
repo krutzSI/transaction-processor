@@ -11,6 +11,8 @@
             <column name="merchant_email" value="demoMerchant1@test.com"/>
             <column name="api_key" value="c1cb3367-52ff-40a1-9c8e-4ef5bb398c5b"/>
             <column name="secret_key" value="9418dd5a-9d0c-4b52-95ec-8dd7aebc4222"/>
+            <column name="merchant_webhook_endpoint"
+                value="http://localhost:8080/transaction-processor/receive/webhook"/>
             <column name="created_by" value="script"/>
             <column name="created_on" value="now()"/>
             <column name="updated_by" value="script"/>
@@ -25,6 +27,8 @@
             <column name="merchant_email" value="demoMerchant2@test.com"/>
             <column name="api_key" value="9d5e7a9e-1b2b-433b-8321-063ccafd6a88"/>
             <column name="secret_key" value="cd00488c-544e-45a7-aa49-3467b4a99fa3"/>
+            <column name="merchant_webhook_endpoint"
+                value="http://localhost:8080/transaction-processor/receive/webhook"/>
             <column name="created_by" value="script"/>
             <column name="created_on" value="now()"/>
             <column name="updated_by" value="script"/>

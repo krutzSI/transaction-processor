@@ -3,7 +3,7 @@ package com.krutz.transactionprocessor.builder;
 import com.krutz.transactionprocessor.constant.Status;
 import com.krutz.transactionprocessor.dao.model.TransactionRequestDetailsDO;
 import com.krutz.transactionprocessor.dto.request.MerchantTransactionRequest;
-import com.krutz.transactionprocessor.dto.response.ErrorResponse;
+import com.krutz.transactionprocessor.dto.response.StatusUpdateWebhookResponse;
 import com.krutz.transactionprocessor.dto.response.TransactionDetailsResponse;
 import com.krutz.transactionprocessor.dto.response.TransactionErrorResponse;
 import com.krutz.transactionprocessor.dto.response.TransactionResponse;
@@ -29,7 +29,8 @@ public class ResponseBuilder {
 		return transactionResponse;
 	}
 
-	public TransactionErrorResponse buildResponseForValidationError(MerchantTransactionRequest request,
+	public TransactionErrorResponse buildResponseForValidationError(
+			MerchantTransactionRequest request,
 			UUID transactionId, Status status, String remarks) {
 		TransactionErrorResponse errorResponse = new TransactionErrorResponse();
 		errorResponse.setTransactionId(transactionId);
@@ -61,4 +62,17 @@ public class ResponseBuilder {
 				requestDetailsDO -> response.add(buildForTransactionDetails(requestDetailsDO)));
 		return response;
 	}
+
+	public StatusUpdateWebhookResponse buildWebhookResponse(
+			TransactionRequestDetailsDO requestDetailsDO) {
+		StatusUpdateWebhookResponse response = new StatusUpdateWebhookResponse();
+		response.setMerchantId(requestDetailsDO.getMerchantId());
+		response.setAmount(requestDetailsDO.getTransactionAmount());
+		response.setCurrency(response.getCurrency());
+		response.setStatus(requestDetailsDO.getStatus());
+		response.setMerchantOrderId(requestDetailsDO.getMerchantOrderId());
+		response.setTransactionId(requestDetailsDO.getTransactionId());
+		return response;
+	}
+
 }

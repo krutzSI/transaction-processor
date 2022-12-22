@@ -3,6 +3,8 @@ package com.krutz.transactionprocessor.validator;
 import com.krutz.transactionprocessor.dao.model.MerchantDetailsDO;
 import com.krutz.transactionprocessor.dto.request.MerchantTransactionRequest;
 import com.krutz.transactionprocessor.exception.RequestValidationException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import liquibase.repackaged.org.apache.commons.collections4.CollectionUtils;
@@ -13,9 +15,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(2)
-public class BeanValidator implements Validator{
+public class BeanValidator implements Validator {
 
-	@Autowired private javax.validation.Validator validator;
+	@Autowired
+	private javax.validation.Validator validator;
 
 	@Override
 	public boolean validate(MerchantTransactionRequest request, MerchantDetailsDO merchantDetailsDO) {
@@ -30,11 +33,22 @@ public class BeanValidator implements Validator{
 				validationErrorBuffer.append(", ");
 			}
 		}
+
+		validationErrorBuffer.append(validateTransactionDate(request.getTransactionDate()));
+
 		if (StringUtils.isNotBlank(validationErrorBuffer.toString())) {
-			throw  new RequestValidationException(validationErrorBuffer.toString());
+			throw new RequestValidationException(validationErrorBuffer.toString());
 		}
 
 		return Boolean.TRUE;
+	}
+
+	private String validateTransactionDate(LocalDateTime transactionDate) {
+		if (transactionDate.isBefore(LocalDateTime.of(LocalDate.now(), LocalDateTime.MIN.toLocalTime())))
+		{
+			return "transactionDate must be greater than or equal to current_date";
+		}
+		return StringUtils.EMPTY;
 	}
 
 }

@@ -1,6 +1,6 @@
 databaseChangeLog:
   -  changeSet:
-       id:  1
+       id:  TRANSACTION_REQUEST_DETAILS
        author:  krutz
        changes:
          -  createTable:
